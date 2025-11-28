@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Produtos — Moda Elegante</title>
+    <meta name="description" content="Produtos da Moda Elegante — catálogo completo." />
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = { theme: { extend: { colors: { primary: '#3B82F6' }, fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] } } } }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/custom.css">
+  </head>
+  <body class="antialiased text-slate-800 bg-gray-50 font-sans">
+    <header class="sticky top-0 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-center h-16">
+          <div class="flex items-center gap-3">
+            <img src="images/logo.jpg" alt="Logo Moda Elegante" class="w-12 h-12 rounded-md object-contain bg-white" />
+            <div class="text-center sm:text-left">
+              <span class="font-semibold block">Moda Elegante</span>
+              <div class="text-xs text-slate-500">Estilo que Conquista</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Mobile header (visible only on small screens) -->
+        <div class="md:hidden mb-6">
+          <div class="mb-4">
+            <div class="text-2xl font-extrabold mb-1">Produtos</div>
+            <p class="text-sm text-slate-500">Filtre por categoria</p>
+          </div>
+          <div id="filtersMobile" class="flex gap-2 flex-wrap"></div>
+        </div>
+
+        <!-- Left column: fixed/aside -->
+        <aside class="hidden md:block md:col-span-1">
+          <div class="md:sticky md:top-20">
+            <div class="flex items-center gap-3 mb-4">
+              <img src="images/logo.jpg" alt="Logo Moda Elegante" class="w-14 h-14 rounded-md object-contain bg-white" />
+              <div>
+                <div class="font-semibold">Moda Elegante</div>
+                <div class="text-xs text-slate-500">Estilo que Conquista</div>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <div class="text-sm text-slate-600">Catálogo de</div>
+              <div class="text-3xl font-extrabold">Produtos</div>
+              <p class="text-sm text-slate-500 mt-3">Filtre por categoria para encontrar rapidamente.</p>
+            </div>
+
+            <div id="filtersP" class="flex flex-col gap-2">
+              <!-- filtros gerados dinamicamente -->
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right column: products -->
+        <section class="md:col-span-3">
+          <div id="productsGridP" class="mt-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="bg-gray-50 border-t">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h5 class="font-semibold">Moda Elegante</h5>
+            <p class="mt-2 text-sm text-slate-500">Peças selecionadas com carinho. Fale conosco pelo Telegram para orçamento e dúvidas.</p>
+          </div>
+          <div>
+            <h6 class="font-medium">Contato</h6>
+            <p class="mt-2 text-sm text-slate-500">Telegram: <a class="text-primary font-medium" href="https://t.me/+351930620727" target="_blank" rel="noopener">+351 930 620 727</a></p>
+            <p class="mt-2 text-sm text-slate-500">E-mail: contato@modaelegante.com</p>
+          </div>
+          <div>
+            <h6 class="font-medium">Horário</h6>
+            <p class="mt-2 text-sm text-slate-500">Seg — Sex: 9:00 — 18:00</p>
+          </div>
+        </div>
+        <div class="mt-8 text-center text-sm text-slate-400">© <span id="yearP"></span> Moda Elegante. Todos os direitos reservados.</div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('yearP').textContent = new Date().getFullYear();
+
+      const products = [
+        { id: 1, nome: "T-Shirt Branca Básica", preco: 49.90, categoria: "tshirts", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "T-shirt confortável em algodão premium, ideal para o dia a dia." },
+        { id: 2, nome: "T-Shirt Preta Premium", preco: 54.90, categoria: "tshirts", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "T-shirt em algodão de alta qualidade com acabamento perfeito." },
+        { id: 3, nome: "Camisa Social Branca", preco: 129.90, categoria: "tshirts", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Camisa social clássica, ideal para trabalho ou eventos." },
+        { id: 4, nome: "Camisa Social Azul", preco: 134.90, categoria: "tshirts", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Camisa social em tom azul, elegante e versátil." },
+        { id: 5, nome: "T-Shirt Estampada", preco: 59.90, categoria: "tshirts", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "T-shirt com estampa moderna e design exclusivo." },
+        { id: 6, nome: "Sandália Praia Azul", preco: 79.90, categoria: "sandalias", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Sandália leve e resistente à água, perfeita para passeios na praia." },
+        { id: 7, nome: "Sandália Praia Branca", preco: 74.90, categoria: "sandalias", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Sandália confortável em tons claros para o verão." },
+        { id: 8, nome: "Sandália Festa Dourada", preco: 139.90, categoria: "sandalias", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Sandália para festas, com brilho e acabamento premium." },
+        { id: 9, nome: "Sandália Festiva Prata", preco: 144.90, categoria: "sandalias", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Sandália elegante com detalhes em prata para ocasiões especiais." },
+        { id: 10, nome: "Sandália Conforto Marrom", preco: 84.90, categoria: "sandalias", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Sandália de conforto com design casual e duradouro." },
+        { id: 11, nome: "Tênis Casual Branco", preco: 199.90, categoria: "calcados", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Tênis casual com design moderno e sola antiderrapante." },
+        { id: 12, nome: "Tênis Casual Preto", preco: 204.90, categoria: "calcados", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Tênis clássico em preto para o dia a dia." },
+        { id: 13, nome: "Bota Urbana Marrom", preco: 299.90, categoria: "calcados", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Bota urbana resistente, perfeita para dias frios e chuvosos." },
+        { id: 14, nome: "Bota Chelsea Preta", preco: 319.90, categoria: "calcados", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Bota Chelsea elegante e versátil para qualquer ocasião." },
+        { id: 15, nome: "Sapato Loafer Dourado", preco: 189.90, categoria: "calcados", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Sapato loafer em tons quentes, ideal para looks sofisticados." },
+        { id: 16, nome: "Chapéu Fedora Preto", preco: 89.90, categoria: "chapeus", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Chapéu estiloso para proteção solar e complemento do look." },
+        { id: 17, nome: "Chapéu Panamá Branco", preco: 94.90, categoria: "chapeus", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Chapéu Panamá clássico, perfeito para o verão." },
+        { id: 18, nome: "Boné Casual Azul", preco: 39.90, categoria: "chapeus", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Boné casual em algodão, ideal para looks descontraídos." },
+        { id: 19, nome: "Chapéu Balde Cinza", preco: 64.90, categoria: "chapeus", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Chapéu balde moderno e funcional para proteção e estilo." },
+        { id: 20, nome: "Saltos Elegantes Pretos", preco: 249.90, categoria: "saltos", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Saltos elegantes para ocasiões especiais, conforto e sofisticação." },
+        { id: 21, nome: "Saltos Nude Delicados", preco: 239.90, categoria: "saltos", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Saltos em tom nude, versátil e elegante para eventos." },
+        { id: 22, nome: "Saltos Vermelhos Vibrantes", preco: 269.90, categoria: "saltos", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Saltos em vermelho vibrante para looks marcantes." },
+        { id: 23, nome: "Saltos Metalizados Ouro", preco: 279.90, categoria: "saltos", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Saltos com acabamento metalizado em tons de ouro." },
+        { id: 24, nome: "Camisa de Futebol Premium", preco: 59.90, categoria: "futebol", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Camisa respirável para treinos e jogos, tecido que afasta o suor." },
+        { id: 25, nome: "Camisa de Futebol Reserva", preco: 54.90, categoria: "futebol", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Camisa de treino em cores variadas com excelente conforto." },
+        { id: 26, nome: "Calção de Futebol Standard", preco: 34.90, categoria: "futebol", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Calção leve e com boa ventilação, ideal para treinos e jogos." },
+        { id: 27, nome: "Calção de Futebol Plus", preco: 39.90, categoria: "futebol", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Calção reforçado com bolsos laterais e maior durabilidade." },
+        { id: 28, nome: "Chuteiras de Futebol Campo", preco: 149.90, categoria: "futebol", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Chuteiras com travas para melhor aderência em relvado." },
+        { id: 29, nome: "Chuteiras de Futebol Profissional", preco: 179.90, categoria: "futebol", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Chuteiras profissionais com tecnologia de ponta para máximo desempenho." },
+        { id: 30, nome: "Camisa de Futsal Professional", preco: 54.90, categoria: "futsal", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Camisa específica para futsal, leve e flexível para movimentos rápidos." },
+        { id: 31, nome: "Camisa de Futsal Estampada", preco: 59.90, categoria: "futsal", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Camisa de futsal com designs modernos e cores variadas." },
+        { id: 32, nome: "Calção de Futsal Padrão", preco: 29.90, categoria: "futsal", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Calção confortável para jogos indoor e treinos." },
+        { id: 33, nome: "Calção de Futsal Premium", preco: 34.90, categoria: "futsal", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Calção de futsal com tecnologia de secagem rápida." },
+        { id: 34, nome: "Chuteiras de Futsal Indoor", preco: 139.90, categoria: "futsal", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Chuteiras indoor com sola plana e excelente aderência." },
+        { id: 35, nome: "Chuteiras de Futsal Elite", preco: 169.90, categoria: "futsal", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Chuteiras de futsal elite com conforto e controle superiores." },
+        { id: 36, nome: "Camisa de Basquete Branca", preco: 64.90, categoria: "basquete", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Camisa sem mangas, com tecido que afasta o suor para alta performance." },
+        { id: 37, nome: "Camisa de Basquete Preta", preco: 69.90, categoria: "basquete", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Camisa de basquete em preto com design moderno e respirável." },
+        { id: 38, nome: "Calção de Basquete Standard", preco: 39.90, categoria: "basquete", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Calção largo e resistente, ideal para mobilidade em campo." },
+        { id: 39, nome: "Calção de Basquete Plus", preco: 44.90, categoria: "basquete", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Calção de basquete com bolsos funcionais e maior conforto." },
+        { id: 40, nome: "Ténis de Basquete Air", preco: 179.90, categoria: "basquete", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Ténis com bom amortecimento e suporte lateral para saltos e mudanças de direção." },
+        { id: 41, nome: "Ténis de Basquete Pro", preco: 219.90, categoria: "basquete", imagens: ["images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg", "images/logo.jpg"], descricao: "Ténis de basquete profissional com tecnologia avançada de suporte." }
+      ];
+
+      // Variantes materializadas: inseridas estaticamente para que cada produto
+      // exista no código (útil para manter caminhos de imagens editáveis).
+      products.push(
+        { id: 42, nome: "T-Shirt Branca Básica Limited", preco: 52.4, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "T-shirt confortável em algodão premium, ideal para o dia a dia." },
+        { id: 43, nome: "T-Shirt Branca Básica Prime", preco: 54.89, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "T-shirt confortável em algodão premium, ideal para o dia a dia." },
+        { id: 44, nome: "T-Shirt Preta Premium Prime", preco: 57.65, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "T-shirt em algodão de alta qualidade com acabamento perfeito." },
+        { id: 45, nome: "T-Shirt Preta Premium Edition", preco: 60.39, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "T-shirt em algodão de alta qualidade com acabamento perfeito." },
+        { id: 46, nome: "Camisa Social Branca Edition", preco: 136.4, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa social clássica, ideal para trabalho ou eventos." },
+        { id: 47, nome: "Camisa Social Branca Classic", preco: 142.89, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa social clássica, ideal para trabalho ou eventos." },
+        { id: 48, nome: "Camisa Social Azul Classic", preco: 141.65, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa social em tom azul, elegante e versátil." },
+        { id: 49, nome: "Camisa Social Azul Sport", preco: 148.39, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa social em tom azul, elegante e versátil." },
+        { id: 50, nome: "T-Shirt Estampada Sport", preco: 62.9, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "T-shirt com estampa moderna e design exclusivo." },
+        { id: 51, nome: "T-Shirt Estampada Limited", preco: 65.89, categoria: "tshirts", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "T-shirt com estampa moderna e design exclusivo." },
+        { id: 52, nome: "Sandália Praia Azul Limited", preco: 83.9, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália leve e resistente à água, perfeita para passeios na praia." },
+        { id: 53, nome: "Sandália Praia Azul Prime", preco: 87.89, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália leve e resistente à água, perfeita para passeios na praia." },
+        { id: 54, nome: "Sandália Praia Branca Prime", preco: 78.65, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália confortável em tons claros para o verão." },
+        { id: 55, nome: "Sandália Praia Branca Edition", preco: 82.39, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália confortável em tons claros para o verão." },
+        { id: 56, nome: "Sandália Festa Dourada Edition", preco: 146.9, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália para festas, com brilho e acabamento premium." },
+        { id: 57, nome: "Sandália Festa Dourada Classic", preco: 153.89, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália para festas, com brilho e acabamento premium." },
+        { id: 58, nome: "Sandália Festiva Prata Classic", preco: 152.15, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália elegante com detalhes em prata para ocasiões especiais." },
+        { id: 59, nome: "Sandália Festiva Prata Sport", preco: 159.39, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália elegante com detalhes em prata para ocasiões especiais." },
+        { id: 60, nome: "Sandália Conforto Marrom Sport", preco: 89.15, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália de conforto com design casual e duradouro." },
+        { id: 61, nome: "Sandália Conforto Marrom Limited", preco: 93.39, categoria: "sandalias", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sandália de conforto com design casual e duradouro." },
+        { id: 62, nome: "Tênis Casual Branco Limited", preco: 209.9, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Tênis casual com design moderno e sola antiderrapante." },
+        { id: 63, nome: "Tênis Casual Branco Prime", preco: 219.89, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Tênis casual com design moderno e sola antiderrapante." },
+        { id: 64, nome: "Tênis Casual Preto Prime", preco: 215.15, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Tênis clássico em preto para o dia a dia." },
+        { id: 65, nome: "Tênis Casual Preto Edition", preco: 225.39, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Tênis clássico em preto para o dia a dia." },
+        { id: 66, nome: "Bota Urbana Marrom Edition", preco: 314.9, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Bota urbana resistente, perfeita para dias frios e chuvosos." },
+        { id: 67, nome: "Bota Urbana Marrom Classic", preco: 329.89, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Bota urbana resistente, perfeita para dias frios e chuvosos." },
+        { id: 68, nome: "Bota Chelsea Preta Classic", preco: 335.9, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Bota Chelsea elegante e versátil para qualquer ocasião." },
+        { id: 69, nome: "Bota Chelsea Preta Sport", preco: 351.89, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Bota Chelsea elegante e versátil para qualquer ocasião." },
+        { id: 70, nome: "Sapato Loafer Dourado Sport", preco: 199.4, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sapato loafer em tons quentes, ideal para looks sofisticados." },
+        { id: 71, nome: "Sapato Loafer Dourado Limited", preco: 209.89, categoria: "calcados", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Sapato loafer em tons quentes, ideal para looks sofisticados." },
+        { id: 72, nome: "Chapéu Fedora Preto Limited", preco: 94.4, categoria: "chapeus", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chapéu estiloso para proteção solar e complemento do look." },
+        { id: 73, nome: "Chapéu Fedora Preto Prime", preco: 99.89, categoria: "chapeus", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chapéu estiloso para proteção solar e complemento do look." },
+        { id: 94, nome: "Calção de Futebol Plus Prime", preco: 41.9, categoria: "futebol", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção reforçado com bolsos laterais e maior durabilidade." },
+        { id: 95, nome: "Calção de Futebol Plus Edition", preco: 43.89, categoria: "futebol", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção reforçado com bolsos laterais e maior durabilidade." },
+        { id: 96, nome: "Chuteiras de Futebol Campo Edition", preco: 157.4, categoria: "futebol", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chuteiras com travas para melhor aderência em relvado." },
+        { id: 97, nome: "Chuteiras de Futebol Campo Classic", preco: 164.89, categoria: "futebol", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chuteiras com travas para melhor aderência em relvado." },
+        { id: 98, nome: "Chuteiras de Futebol Profissional Classic", preco: 188.9, categoria: "futebol", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chuteiras profissionais com tecnologia de ponta para máximo desempenho." },
+        { id: 99, nome: "Chuteiras de Futebol Profissional Sport", preco: 197.89, categoria: "futebol", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chuteiras profissionais com tecnologia de ponta para máximo desempenho." },
+        { id: 100, nome: "Camisa de Futsal Professional Sport", preco: 57.65, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa específica para futsal, leve e flexível para movimentos rápidos." },
+        { id: 101, nome: "Camisa de Futsal Professional Limited", preco: 60.39, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa específica para futsal, leve e flexível para movimentos rápidos." },
+        { id: 102, nome: "Camisa de Futsal Estampada Limited", preco: 62.9, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa de futsal com designs modernos e cores variadas." },
+        { id: 103, nome: "Camisa de Futsal Estampada Prime", preco: 65.89, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa de futsal com designs modernos e cores variadas." },
+        { id: 104, nome: "Calção de Futsal Padrão Prime", preco: 31.4, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção confortável para jogos indoor e treinos." },
+        { id: 105, nome: "Calção de Futsal Padrão Edition", preco: 32.89, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção confortável para jogos indoor e treinos." },
+        { id: 106, nome: "Calção de Futsal Premium Edition", preco: 36.65, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção de futsal com tecnologia de secagem rápida." },
+        { id: 107, nome: "Calção de Futsal Premium Classic", preco: 38.39, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção de futsal com tecnologia de secagem rápida." },
+        { id: 108, nome: "Chuteiras de Futsal Indoor Classic", preco: 146.9, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chuteiras indoor com sola plana e excelente aderência." },
+        { id: 109, nome: "Chuteiras de Futsal Indoor Sport", preco: 153.89, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chuteiras indoor com sola plana e excelente aderência." },
+        { id: 110, nome: "Chuteiras de Futsal Elite Sport", preco: 178.4, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chuteiras de futsal elite com conforto e controle superiores." },
+        { id: 111, nome: "Chuteiras de Futsal Elite Limited", preco: 187.39, categoria: "futsal", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Chuteiras de futsal elite com conforto e controle superiores." },
+        { id: 112, nome: "Camisa de Basquete Branca Limited", preco: 68.15, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa sem mangas, com tecido que afasta o suor para alta performance." },
+        { id: 113, nome: "Camisa de Basquete Branca Prime", preco: 71.39, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa sem mangas, com tecido que afasta o suor para alta performance." },
+        { id: 114, nome: "Camisa de Basquete Preta Prime", preco: 73.4, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa de basquete em preto com design moderno e respirável." },
+        { id: 115, nome: "Camisa de Basquete Preta Edition", preco: 76.89, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Camisa de basquete em preto com design moderno e respirável." },
+        { id: 116, nome: "Calção de Basquete Standard Edition", preco: 41.9, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção largo e resistente, ideal para mobilidade em campo." },
+        { id: 117, nome: "Calção de Basquete Standard Classic", preco: 43.89, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção largo e resistente, ideal para mobilidade em campo." },
+        { id: 118, nome: "Calção de Basquete Plus Classic", preco: 47.15, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção de basquete com bolsos funcionais e maior conforto." },
+        { id: 119, nome: "Calção de Basquete Plus Sport", preco: 49.39, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Calção de basquete com bolsos funcionais e maior conforto." },
+        { id: 120, nome: "Ténis de Basquete Air Sport", preco: 188.9, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Ténis com bom amortecimento e suporte lateral para saltos e mudanças de direção." },
+        { id: 121, nome: "Ténis de Basquete Air Limited", preco: 197.89, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Ténis com bom amortecimento e suporte lateral para saltos e mudanças de direção." },
+        { id: 122, nome: "Ténis de Basquete Pro Limited", preco: 230.9, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Ténis de basquete profissional com tecnologia avançada de suporte." },
+        { id: 123, nome: "Ténis de Basquete Pro Prime", preco: 241.89, categoria: "basquete", imagens: ["images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg","images/logo.jpg"], descricao: "Ténis de basquete profissional com tecnologia avançada de suporte." }
+      );
+
+      const filtersContainer = document.getElementById('filtersP');
+      const filtersMobileContainer = document.getElementById('filtersMobile');
+      const categories = Array.from(new Set(products.map(p => p.categoria)));
+      const grid = document.getElementById('productsGridP');
+
+      function formatPrice(value) { return value.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' }); }
+
+      function openWhatsApp(productName) {
+        // Abre diretamente o chat do Telegram
+        const url = 'https://t.me/+351930620727';
+        window.open(url, '_blank');
+      }
+
+      function escapeHtmlJs(s) { return s.replace(/'/g, "\\'").replace(/\"/g, '\\"'); }
+
+      function createFilterButton(cat, label) {
+        const btn = document.createElement('button');
+        btn.className = 'px-3 py-1 rounded-full text-sm bg-white border border-gray-200 shadow-sm hover:bg-gray-100 transition capitalize';
+        btn.textContent = label;
+        btn.dataset.cat = cat;
+        btn.addEventListener('click', () => applyFilter(cat));
+        return btn;
+      }
+
+      function renderFilters() {
+        if (filtersContainer) filtersContainer.innerHTML = '';
+        if (filtersMobileContainer) filtersMobileContainer.innerHTML = '';
+        // Todos
+        if (filtersContainer) filtersContainer.appendChild(createFilterButton('all', 'Todos'));
+        if (filtersMobileContainer) filtersMobileContainer.appendChild(createFilterButton('all', 'Todos'));
+        // Categorias
+        categories.forEach(cat => {
+          if (filtersContainer) filtersContainer.appendChild(createFilterButton(cat, cat));
+          if (filtersMobileContainer) filtersMobileContainer.appendChild(createFilterButton(cat, cat));
+        });
+      }
+
+      function renderProducts(list) {
+        grid.innerHTML = '';
+        if (list.length === 0) { grid.innerHTML = '<div class="col-span-full text-center text-slate-500">Nenhum produto encontrado.</div>'; return; }
+        list.forEach((p, idx) => {
+          const card = document.createElement('article'); card.className = 'bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition group min-w-0';
+          const cover = (p.imagens && p.imagens.length) ? p.imagens[0] : (p.imagem || 'images/logo.jpg');
+          card.innerHTML = `
+            <div class="w-full h-48 bg-gray-100 overflow-hidden"><img src="${cover}" alt="${p.nome}" class="w-full h-full img-cover transition-transform duration-300 group-hover:scale-105" /></div>
+            <div class="p-4">
+              <h4 class="font-medium text-slate-800">${p.nome}</h4>
+              <div class="mt-2 flex items-center justify-between"><div class="text-primary font-semibold">${formatPrice(p.preco)}</div><div class="text-sm text-slate-500 capitalize">${p.categoria}</div></div>
+              <div class="mt-4 flex flex-col gap-2">
+                <button class="px-3 py-2 rounded-md border border-gray-200 text-sm hover:bg-gray-100 transition" onclick="showDescricao(${idx})">Detalhes</button>
+                <button class="px-3 py-2 rounded-md border-2 border-blue-600 text-blue-700 bg-white font-semibold hover:bg-blue-600 hover:text-white transition text-sm" onclick="encomendarProduto('${escapeHtmlJs(p.nome)}')">Encomendar</button>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      // Função para encomendar produto via WhatsApp
+      function encomendarProduto(nome) {
+        // Abrir diretamente o chat do Telegram para contacto
+        var url = 'https://t.me/+351930620727';
+        window.open(url, '_blank');
+      }
+
+      // Modal para descrição do produto
+      function showDescricao(idx) {
+        const p = products[idx];
+        const imgs = (p.imagens && p.imagens.length) ? p.imagens.slice(0,4) : (p.imagem ? [p.imagem] : ['images/logo.jpg', 'images/logo.jpg', 'images/logo.jpg', 'images/logo.jpg']);
+        let modal = document.getElementById('descricaoModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'descricaoModal';
+          modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 p-4';
+          modal.innerHTML = `
+            <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full p-6 relative">
+              <button id="closeModalBtn" class="absolute top-3 right-3 text-slate-400 hover:text-primary text-2xl">&times;</button>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <div class="w-full h-72 bg-gray-100 overflow-hidden mb-4"><img id="modalMainImg" src="${imgs[0]}" alt="${p.nome}" class="w-full h-full object-contain" /></div>
+                  <div id="modalThumbs" class="flex gap-2 flex-wrap"></div>
+                </div>
+                <div class="flex flex-col justify-center items-center text-center">
+                  <h3 class="text-2xl font-semibold mb-2">${p.nome}</h3>
+                  <p class="text-slate-700 mb-4 leading-relaxed">${p.descricao}</p>
+                  <div class="text-sm text-slate-500 mb-4">Categoria: <span id="modalCategory" class="capitalize">${p.categoria}</span></div>
+                  <div id="modalPrice" class="text-xl font-semibold text-primary mt-2">${formatPrice(p.preco)}</div>
+                </div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+          document.getElementById('closeModalBtn').onclick = () => modal.remove();
+
+          // populate thumbnails
+          const thumbs = modal.querySelector('#modalThumbs');
+          const mainImg = modal.querySelector('#modalMainImg');
+          imgs.forEach((src, i) => {
+            const t = document.createElement('img');
+            t.src = src; t.alt = p.nome + ' ' + (i+1);
+            t.className = 'w-20 h-20 object-cover rounded cursor-pointer border border-gray-200';
+            t.onclick = () => {
+              mainImg.src = src;
+              // highlight selected thumb
+              thumbs.querySelectorAll('img').forEach(img => img.classList.remove('ring-2','ring-primary'));
+              t.classList.add('ring-2','ring-primary');
+            };
+            thumbs.appendChild(t);
+            if (i === 0) t.classList.add('ring-2','ring-primary');
+          });
+
+        } else {
+          modal.querySelector('#modalMainImg').src = imgs[0];
+          modal.querySelector('h3').textContent = p.nome;
+          modal.querySelector('p').textContent = p.descricao;
+          const catEl = modal.querySelector('#modalCategory'); if (catEl) catEl.textContent = p.categoria;
+          const priceEl = modal.querySelector('#modalPrice'); if (priceEl) priceEl.textContent = formatPrice(p.preco);
+          modal.style.display = 'flex';
+        }
+      }
+
+      function applyFilter(cat) {
+        const btns = [];
+        if (filtersContainer) btns.push(...filtersContainer.querySelectorAll('button'));
+        if (filtersMobileContainer) btns.push(...filtersMobileContainer.querySelectorAll('button'));
+        btns.forEach(b => b.classList.remove('ring-2','ring-primary'));
+        const active = Array.from(btns).find(b => b.dataset.cat === cat); if (active) active.classList.add('ring-2','ring-primary');
+        if (cat === 'all') renderProducts(products); else renderProducts(products.filter(p => p.categoria === cat));
+      }
+
+      renderFilters(); renderProducts(products); applyFilter('all');
+
+      // Scroll-to-top button: create and behavior
+      (function addScrollTop() {
+        const btn = document.createElement('button');
+        btn.id = 'scrollTopBtn';
+        btn.setAttribute('aria-label', 'Voltar ao topo');
+        btn.className = 'scroll-top-btn fixed bottom-6 right-6 z-50 bg-primary text-white rounded-full scroll-top-transition scroll-top-hidden';
+        // Use the same chevron but rotate to point up and increase size for visibility; force black color
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform rotate-180 text-black" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.293 9.293a1 1 0 011.414 0L10 14.586l5.293-5.293a1 1 0 011.414 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>';
+
+        btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.body.appendChild(btn);
+
+        const showAt = 200; // px
+        function update() {
+          const top = window.scrollY || document.documentElement.scrollTop;
+          if (top > showAt) {
+            btn.classList.remove('scroll-top-hidden'); btn.classList.add('scroll-top-visible');
+          } else {
+            btn.classList.remove('scroll-top-visible'); btn.classList.add('scroll-top-hidden');
+          }
+        }
+        window.addEventListener('scroll', update, { passive: true });
+        // expose for tests
+        window.__scrollTopBtn = btn;
+        update();
+      })();
+    </script>
+  </body>
+</html>
