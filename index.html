@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Produtos — Moda Elegante</title>
+    <meta name="description" content="Produtos da Moda Elegante — catálogo completo." />
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = { theme: { extend: { colors: { primary: '#3B82F6' }, fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] } } } }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/custom.css">
+  </head>
+  <body class="antialiased text-slate-800 bg-gray-50 font-sans">
+    <header class="sticky top-0 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-center h-16">
+          <div class="flex items-center gap-3">
+            <img src="images/logo.jpg" alt="Logo Moda Elegante" class="w-12 h-12 rounded-md object-contain bg-white" />
+            <div class="text-center sm:text-left">
+              <span class="font-semibold block">Moda Elegante</span>
+              <div class="text-xs text-slate-500">Estilo que Conquista</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex flex-col w-full mb-8">
+        <h1 class="text-center">
+          <div class="text-sm text-slate-600 mb-1">Catálogo de</div>
+          <div class="text-4xl font-extrabold">Produtos</div>
+        </h1>
+        <p class="text-sm text-slate-500 text-center mt-4 mb-6">Filtre por categoria para encontrar rapidamente.</p>
+        <div class="flex items-center justify-center gap-3">
+          <div id="filtersP" class="flex gap-2 flex-wrap justify-center"></div>
+        </div>
+      </div>
+
+      <div id="productsGridP" class="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+    </main>
+
+    <footer class="bg-gray-50 border-t">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h5 class="font-semibold">Moda Elegante</h5>
+            <p class="mt-2 text-sm text-slate-500">Peças selecionadas com carinho. Fale conosco pelo Telegram para orçamento e dúvidas.</p>
+          </div>
+          <div>
+            <h6 class="font-medium">Contato</h6>
+            <p class="mt-2 text-sm text-slate-500">Telegram: <a class="text-primary font-medium" href="https://t.me/+351930620727" target="_blank" rel="noopener">+351 930 620 727</a></p>
+            <p class="mt-2 text-sm text-slate-500">E-mail: contato@modaelegante.com</p>
+          </div>
+          <div>
+            <h6 class="font-medium">Horário</h6>
+            <p class="mt-2 text-sm text-slate-500">Seg — Sex: 9:00 — 18:00</p>
+          </div>
+        </div>
+        <div class="mt-8 text-center text-sm text-slate-400">© <span id="yearP"></span> Moda Elegante. Todos os direitos reservados.</div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('yearP').textContent = new Date().getFullYear();
+
+      const logoUrl = "images/logo.jpg";
+      const products = [
+        { id: 1, nome: "T-Shirt Branca Básica", preco: 49.90, categoria: "tshirts", imagem: logoUrl, descricao: "T-shirt confortável em algodão premium, ideal para o dia a dia." },
+        { id: 2, nome: "T-Shirt Preta Premium", preco: 54.90, categoria: "tshirts", imagem: logoUrl, descricao: "T-shirt em algodão de alta qualidade com acabamento perfeito." },
+        { id: 3, nome: "Camisa Social Branca", preco: 129.90, categoria: "tshirts", imagem: logoUrl, descricao: "Camisa social clássica, ideal para trabalho ou eventos." },
+        { id: 4, nome: "Camisa Social Azul", preco: 134.90, categoria: "tshirts", imagem: logoUrl, descricao: "Camisa social em tom azul, elegante e versátil." },
+        { id: 5, nome: "T-Shirt Estampada", preco: 59.90, categoria: "tshirts", imagem: logoUrl, descricao: "T-shirt com estampa moderna e design exclusivo." },
+        { id: 6, nome: "Sandália Praia Azul", preco: 79.90, categoria: "sandalias", imagem: logoUrl, descricao: "Sandália leve e resistente à água, perfeita para passeios na praia." },
+        { id: 7, nome: "Sandália Praia Branca", preco: 74.90, categoria: "sandalias", imagem: logoUrl, descricao: "Sandália confortável em tons claros para o verão." },
+        { id: 8, nome: "Sandália Festa Dourada", preco: 139.90, categoria: "sandalias", imagem: logoUrl, descricao: "Sandália para festas, com brilho e acabamento premium." },
+        { id: 9, nome: "Sandália Festiva Prata", preco: 144.90, categoria: "sandalias", imagem: logoUrl, descricao: "Sandália elegante com detalhes em prata para ocasiões especiais." },
+        { id: 10, nome: "Sandália Conforto Marrom", preco: 84.90, categoria: "sandalias", imagem: logoUrl, descricao: "Sandália de conforto com design casual e duradouro." },
+        { id: 11, nome: "Tênis Casual Branco", preco: 199.90, categoria: "calcados", imagem: logoUrl, descricao: "Tênis casual com design moderno e sola antiderrapante." },
+        { id: 12, nome: "Tênis Casual Preto", preco: 204.90, categoria: "calcados", imagem: logoUrl, descricao: "Tênis clássico em preto para o dia a dia." },
+        { id: 13, nome: "Bota Urbana Marrom", preco: 299.90, categoria: "calcados", imagem: logoUrl, descricao: "Bota urbana resistente, perfeita para dias frios e chuvosos." },
+        { id: 14, nome: "Bota Chelsea Preta", preco: 319.90, categoria: "calcados", imagem: logoUrl, descricao: "Bota Chelsea elegante e versátil para qualquer ocasião." },
+        { id: 15, nome: "Sapato Loafer Dourado", preco: 189.90, categoria: "calcados", imagem: logoUrl, descricao: "Sapato loafer em tons quentes, ideal para looks sofisticados." },
+        { id: 16, nome: "Chapéu Fedora Preto", preco: 89.90, categoria: "chapeus", imagem: logoUrl, descricao: "Chapéu estiloso para proteção solar e complemento do look." },
+        { id: 17, nome: "Chapéu Panamá Branco", preco: 94.90, categoria: "chapeus", imagem: logoUrl, descricao: "Chapéu Panamá clássico, perfeito para o verão." },
+        { id: 18, nome: "Boné Casual Azul", preco: 39.90, categoria: "chapeus", imagem: logoUrl, descricao: "Boné casual em algodão, ideal para looks descontraídos." },
+        { id: 19, nome: "Chapéu Balde Cinza", preco: 64.90, categoria: "chapeus", imagem: logoUrl, descricao: "Chapéu balde moderno e funcional para proteção e estilo." },
+        { id: 20, nome: "Saltos Elegantes Pretos", preco: 249.90, categoria: "saltos", imagem: logoUrl, descricao: "Saltos elegantes para ocasiões especiais, conforto e sofisticação." },
+        { id: 21, nome: "Saltos Nude Delicados", preco: 239.90, categoria: "saltos", imagem: logoUrl, descricao: "Saltos em tom nude, versátil e elegante para eventos." },
+        { id: 22, nome: "Saltos Vermelhos Vibrantes", preco: 269.90, categoria: "saltos", imagem: logoUrl, descricao: "Saltos em vermelho vibrante para looks marcantes." },
+        { id: 23, nome: "Saltos Metalizados Ouro", preco: 279.90, categoria: "saltos", imagem: logoUrl, descricao: "Saltos com acabamento metalizado em tons de ouro." },
+        { id: 24, nome: "Camisa de Futebol Premium", preco: 59.90, categoria: "futebol", imagem: logoUrl, descricao: "Camisa respirável para treinos e jogos, tecido que afasta o suor." },
+        { id: 25, nome: "Camisa de Futebol Reserva", preco: 54.90, categoria: "futebol", imagem: logoUrl, descricao: "Camisa de treino em cores variadas com excelente conforto." },
+        { id: 26, nome: "Calção de Futebol Standard", preco: 34.90, categoria: "futebol", imagem: logoUrl, descricao: "Calção leve e com boa ventilação, ideal para treinos e jogos." },
+        { id: 27, nome: "Calção de Futebol Plus", preco: 39.90, categoria: "futebol", imagem: logoUrl, descricao: "Calção reforçado com bolsos laterais e maior durabilidade." },
+        { id: 28, nome: "Chuteiras de Futebol Campo", preco: 149.90, categoria: "futebol", imagem: logoUrl, descricao: "Chuteiras com travas para melhor aderência em relvado." },
+        { id: 29, nome: "Chuteiras de Futebol Profissional", preco: 179.90, categoria: "futebol", imagem: logoUrl, descricao: "Chuteiras profissionais com tecnologia de ponta para máximo desempenho." },
+        { id: 30, nome: "Camisa de Futsal Professional", preco: 54.90, categoria: "futsal", imagem: logoUrl, descricao: "Camisa específica para futsal, leve e flexível para movimentos rápidos." },
+        { id: 31, nome: "Camisa de Futsal Estampada", preco: 59.90, categoria: "futsal", imagem: logoUrl, descricao: "Camisa de futsal com designs modernos e cores variadas." },
+        { id: 32, nome: "Calção de Futsal Padrão", preco: 29.90, categoria: "futsal", imagem: logoUrl, descricao: "Calção confortável para jogos indoor e treinos." },
+        { id: 33, nome: "Calção de Futsal Premium", preco: 34.90, categoria: "futsal", imagem: logoUrl, descricao: "Calção de futsal com tecnologia de secagem rápida." },
+        { id: 34, nome: "Chuteiras de Futsal Indoor", preco: 139.90, categoria: "futsal", imagem: logoUrl, descricao: "Chuteiras indoor com sola plana e excelente aderência." },
+        { id: 35, nome: "Chuteiras de Futsal Elite", preco: 169.90, categoria: "futsal", imagem: logoUrl, descricao: "Chuteiras de futsal elite com conforto e controle superiores." },
+        { id: 36, nome: "Camisa de Basquete Branca", preco: 64.90, categoria: "basquete", imagem: logoUrl, descricao: "Camisa sem mangas, com tecido que afasta o suor para alta performance." },
+        { id: 37, nome: "Camisa de Basquete Preta", preco: 69.90, categoria: "basquete", imagem: logoUrl, descricao: "Camisa de basquete em preto com design moderno e respirável." },
+        { id: 38, nome: "Calção de Basquete Standard", preco: 39.90, categoria: "basquete", imagem: logoUrl, descricao: "Calção largo e resistente, ideal para mobilidade em campo." },
+        { id: 39, nome: "Calção de Basquete Plus", preco: 44.90, categoria: "basquete", imagem: logoUrl, descricao: "Calção de basquete com bolsos funcionais e maior conforto." },
+        { id: 40, nome: "Ténis de Basquete Air", preco: 179.90, categoria: "basquete", imagem: logoUrl, descricao: "Ténis com bom amortecimento e suporte lateral para saltos e mudanças de direção." },
+        { id: 41, nome: "Ténis de Basquete Pro", preco: 219.90, categoria: "basquete", imagem: logoUrl, descricao: "Ténis de basquete profissional com tecnologia avançada de suporte." }
+      ];
+
+      const categories = Array.from(new Set(products.map(p => p.categoria)));
+      const filtersContainer = document.getElementById('filtersP');
+      const grid = document.getElementById('productsGridP');
+
+      function formatPrice(value) { return value.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' }); }
+
+      function openWhatsApp(productName) {
+        // Abre diretamente o chat do Telegram
+        const url = 'https://t.me/+351930620727';
+        window.open(url, '_blank');
+      }
+
+      function escapeHtmlJs(s) { return s.replace(/'/g, "\\'").replace(/\"/g, '\\"'); }
+
+      function renderFilters() {
+        filtersContainer.innerHTML = '';
+        const allBtn = document.createElement('button');
+        allBtn.className = 'px-3 py-1 rounded-full text-sm bg-white border border-gray-200 shadow-sm hover:bg-gray-100 transition';
+        allBtn.textContent = 'Todos'; allBtn.dataset.cat = 'all'; allBtn.addEventListener('click', () => applyFilter('all'));
+        filtersContainer.appendChild(allBtn);
+        categories.forEach(cat => {
+          const b = document.createElement('button'); b.className = 'px-3 py-1 rounded-full text-sm bg-white border border-gray-200 shadow-sm hover:bg-gray-100 transition capitalize';
+          b.textContent = cat; b.dataset.cat = cat; b.addEventListener('click', () => applyFilter(cat)); filtersContainer.appendChild(b);
+        });
+      }
+
+      function renderProducts(list) {
+        grid.innerHTML = '';
+        if (list.length === 0) { grid.innerHTML = '<div class="col-span-full text-center text-slate-500">Nenhum produto encontrado.</div>'; return; }
+        list.forEach((p, idx) => {
+          const card = document.createElement('article'); card.className = 'bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition group';
+          card.innerHTML = `
+            <div class="w-full h-48 bg-gray-100 overflow-hidden"><img src="${p.imagem}" alt="${p.nome}" class="w-full h-full img-cover transition-transform duration-300 group-hover:scale-105" /></div>
+            <div class="p-4">
+              <h4 class="font-medium text-slate-800">${p.nome}</h4>
+              <div class="mt-2 flex items-center justify-between"><div class="text-primary font-semibold">${formatPrice(p.preco)}</div><div class="text-sm text-slate-500 capitalize">${p.categoria}</div></div>
+              <div class="mt-4 flex gap-2">
+                <button class="px-3 py-2 rounded-md border-2 border-blue-600 text-blue-700 bg-white font-semibold hover:bg-blue-600 hover:text-white transition" onclick="encomendarProduto('${escapeHtmlJs(p.nome)}')">Encomendar</button>
+                <button class="px-3 py-2 rounded-md border border-gray-200 text-sm hover:bg-gray-100 transition" onclick="showDescricao(${idx})">Detalhes</button>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      // Função para encomendar produto via WhatsApp
+      function encomendarProduto(nome) {
+        // Abrir diretamente o chat do Telegram para contacto
+        var url = 'https://t.me/+351930620727';
+        window.open(url, '_blank');
+      }
+
+      // Modal para descrição do produto
+      function showDescricao(idx) {
+        const p = products[idx];
+        let modal = document.getElementById('descricaoModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'descricaoModal';
+          modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40';
+          modal.innerHTML = `
+            <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+              <button id="closeModalBtn" class="absolute top-2 right-2 text-slate-400 hover:text-primary text-xl">&times;</button>
+              <h3 class="text-lg font-semibold mb-2">${p.nome}</h3>
+              <p class="text-slate-700 mb-4">${p.descricao}</p>
+              <div class="text-sm text-slate-500">Categoria: <span class="capitalize">${p.categoria}</span></div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+          document.getElementById('closeModalBtn').onclick = () => modal.remove();
+        } else {
+          modal.querySelector('h3').textContent = p.nome;
+          modal.querySelector('p').textContent = p.descricao;
+          modal.querySelector('span').textContent = p.categoria;
+          modal.style.display = 'flex';
+          document.getElementById('closeModalBtn').onclick = () => modal.style.display = 'none';
+        }
+      }
+
+      function applyFilter(cat) {
+        const btns = filtersContainer.querySelectorAll('button'); btns.forEach(b => b.classList.remove('ring-2','ring-primary'));
+        const active = Array.from(btns).find(b => b.dataset.cat === cat); if (active) active.classList.add('ring-2','ring-primary');
+        if (cat === 'all') renderProducts(products); else renderProducts(products.filter(p => p.categoria === cat));
+      }
+
+      renderFilters(); renderProducts(products); applyFilter('all');
+    </script>
+  </body>
+</html>
